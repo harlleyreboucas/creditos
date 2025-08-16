@@ -72,7 +72,9 @@
   position: relative;
   background-color: #00ffe0;
   border: 3px solid #ffe3a6;
-  padding-top: 75px;
+padding-top: 60px;
+    margin-top: 20px;
+    margin-left: 20px;
   border-radius: 0 0 58px 58px;
   height: 58px;
   width: 58px;
