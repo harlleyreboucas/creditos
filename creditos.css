@@ -4,10 +4,6 @@
     radial-gradient(400px at 110% 110%, rgba(0, 255, 224, .35), transparent 75%),
     linear-gradient(to right, #1d1746, #1d1746);
   position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   z-index: -1;
   width: 100%;
   max-height: 130px;
