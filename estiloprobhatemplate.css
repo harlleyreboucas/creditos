@@ -3565,6 +3565,50 @@ body .parallax-ads .adsbygoogle {
   margin: 30px auto;
 }
 
+/* Barra de progresso azul no topo da página.
+   Aparece no carregamento e ao navegar entre posts.
+   Para mudar a cor, troque --barra-cor; para a espessura, troque height. */
+.top-progress {
+  --barra-cor: #1976d6;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--barra-cor);
+  box-shadow: 0 0 10px var(--barra-cor), 0 0 4px var(--barra-cor);
+  border-radius: 0 3px 3px 0;
+  z-index: 2147483647;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+  transition: width .25s ease, opacity .35s ease;
+}
+
+/* brilho que corre pela barra enquanto carrega */
+.top-progress::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.7), transparent);
+  animation: top-progress-brilho 1s linear infinite;
+}
+
+@keyframes top-progress-brilho {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .top-progress::after {
+    animation: none;
+  }
+}
+
 /* ----------------------------------------------------------------------
    AVISO DE COOKIES
    ---------------------------------------------------------------------- */
