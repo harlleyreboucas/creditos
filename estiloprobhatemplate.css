@@ -5093,7 +5093,7 @@ table.tr-caption-container td {
   position: fixed;
   inset: 0;
   background: var(--bg);
-  z-index: 999999999999999983222784;
+z-index: 2147483646; /* logo abaixo da barra azul do topo */
   display: flex;
   align-items: center;
   justify-content: center;
