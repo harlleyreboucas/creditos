@@ -886,6 +886,8 @@ domWatcher.register(pluginSelector("Cookie Consent"), script => {
                 requestAnimationFrame(() => banner.classList.add("active"));
                 acceptButton.onclick = () => {
                     cookies.set("cookie_consent", "true", 30);
+                    // avisa outros plugins (ex.: PWA) que os cookies foram aceitos
+                    window.dispatchEvent(new Event("pbd:cookie-accepted"));
                     banner.classList.remove("active");
                     banner.ontransitionend = () => banner.remove();
                 };
@@ -2224,14 +2226,14 @@ domWatcher.register(pluginSelector("Pwa"), (script, state) => {
             if (!data.prompt) {
                 return;
             }
-            if (!cookies.has("cookie_consent")) {
-                return;
-            }
             if (state.beforeInstall) {
                 window.removeEventListener("beforeinstallprompt", state.beforeInstall);
             }
             if (state.appInstalled) {
                 window.removeEventListener("appinstalled", state.appInstalled);
+            }
+            if (state.cookieAccepted) {
+                window.removeEventListener("pbd:cookie-accepted", state.cookieAccepted);
             }
             state.beforeInstall = function (event) {
                 // evento consumido: evita mostrar o popup de novo em navegações SPA
@@ -2242,6 +2244,12 @@ domWatcher.register(pluginSelector("Pwa"), (script, state) => {
                 if (cookies.get("pwa") === "true") {
                     return;
                 }
+                // cookies ainda não aceitos: guarda o evento e mostra depois do "Accept"
+                if (!cookies.has("cookie_consent")) {
+                    state.pending = event;
+                    return;
+                }
+                state.pending = null;
                 const overlay = document.createElement("div");
                 overlay.className = "pwa-overlay pbd_overlay";
                 overlay.dataset.pbdId = "pwa-popup";
@@ -2307,6 +2315,14 @@ domWatcher.register(pluginSelector("Pwa"), (script, state) => {
                 state.beforeInstall(window.pbdInstall);
             }
             window.addEventListener("appinstalled", state.appInstalled);
+            state.cookieAccepted = function () {
+                if (state.pending) {
+                    // pequena espera para o aviso de cookies sair da tela
+                    const pendingEvent = state.pending;
+                    setTimeout(() => state.beforeInstall(pendingEvent), 500);
+                }
+            };
+            window.addEventListener("pbd:cookie-accepted", state.cookieAccepted);
         }
         catch (error) {
         }
