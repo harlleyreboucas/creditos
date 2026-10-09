@@ -2234,6 +2234,11 @@ domWatcher.register(pluginSelector("Pwa"), (script, state) => {
                 window.removeEventListener("appinstalled", state.appInstalled);
             }
             state.beforeInstall = function (event) {
+                // evento consumido: evita mostrar o popup de novo em navegações SPA
+                window.pbdInstall = null;
+                if (document.querySelector(".pwa.active")) {
+                    return;
+                }
                 if (cookies.get("pwa") === "true") {
                     return;
                 }
@@ -2283,6 +2288,7 @@ domWatcher.register(pluginSelector("Pwa"), (script, state) => {
                 };
             };
             state.appInstalled = function () {
+                window.pbdInstall = null;
                 cookies.remove("pwa");
                 const pwaActive = document.querySelector(".pwa.active");
                 const pwaOverlay = document.querySelector(".pwa-overlay");
@@ -2294,6 +2300,12 @@ domWatcher.register(pluginSelector("Pwa"), (script, state) => {
                 }
             };
             window.addEventListener("beforeinstallprompt", state.beforeInstall);
+            // O navegador costuma disparar "beforeinstallprompt" antes deste script
+            // (que carrega atrasado). O loader do template guarda o evento em
+            // window.pbdInstall; se ele já aconteceu, mostramos o popup agora.
+            if (window.pbdInstall) {
+                state.beforeInstall(window.pbdInstall);
+            }
             window.addEventListener("appinstalled", state.appInstalled);
         }
         catch (error) {
@@ -4029,4 +4041,3 @@ domWatcher.registerAll("[id^=\"open-\"]", (idOpen, state) => {
         }
     });
 });
-
