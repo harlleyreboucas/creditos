@@ -3647,6 +3647,10 @@ domWatcher.register(pluginSelector("Single Page Application"), (script, state) =
             };
             const navigate = (url, pushHistory = false) => {
                 spaLoader.classList.add("active");
+                // barra azul no topo (definida no loader do template)
+                if (window.pbdProgress) {
+                    window.pbdProgress.start();
+                }
                 fetch(url).then(result => result.text()).then(result => {
                     let doc = (new DOMParser()).parseFromString(result, "text/html");
                     let head = doc.querySelector("head");
@@ -3686,6 +3690,9 @@ domWatcher.register(pluginSelector("Single Page Application"), (script, state) =
                     });
                 }).catch(error => {
                 }).finally(() => {
+                    if (window.pbdProgress) {
+                        window.pbdProgress.done();
+                    }
                     setTimeout(() => {
                         spaLoader.classList.remove("active");
                     }, 400);
