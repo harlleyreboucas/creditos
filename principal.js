@@ -2235,6 +2235,20 @@ domWatcher.register(pluginSelector("Pwa"), (script, state) => {
             if (state.cookieAccepted) {
                 window.removeEventListener("pbd:cookie-accepted", state.cookieAccepted);
             }
+            // O aviso de cookies está ligado no template? Se estiver desligado
+            // (widget oculto ou "status": false), o PWA não precisa esperar o "Accept".
+            const cookieConsentEnabled = () => {
+                const cookieScript = getPluginScript("Cookie Consent");
+                if (!cookieScript) {
+                    return false;
+                }
+                try {
+                    return JSON.parse(cookieScript.textContent).status === true;
+                }
+                catch (error) {
+                    return false;
+                }
+            };
             state.beforeInstall = function (event) {
                 // evento consumido: evita mostrar o popup de novo em navegações SPA
                 window.pbdInstall = null;
@@ -2245,7 +2259,8 @@ domWatcher.register(pluginSelector("Pwa"), (script, state) => {
                     return;
                 }
                 // cookies ainda não aceitos: guarda o evento e mostra depois do "Accept"
-                if (!cookies.has("cookie_consent")) {
+                // (só quando o aviso de cookies está ativo no template)
+                if (cookieConsentEnabled() && !cookies.has("cookie_consent")) {
                     state.pending = event;
                     return;
                 }
