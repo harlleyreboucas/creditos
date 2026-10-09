@@ -3564,7 +3564,7 @@ body .parallax-ads .adsbygoogle {
   top: 0;
   left: 0;
   width: 0;
-  height: 3px;
+  height: 5px;
   background: var(--barra-cor);
   box-shadow: 0 0 10px var(--barra-cor), 0 0 4px var(--barra-cor);
   border-radius: 0 3px 3px 0;
