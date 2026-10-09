@@ -9,8 +9,12 @@
  *   - variables and functions renamed from context (names are inferred, so some may be approximate)
  * Behaviour was checked against the original in a headless browser (same requests, DOM and storage).
  *
- * Note: the script contacts remote endpoints to validate the template status
- * (see the license/status check IIFE below). That logic is kept as-is.
+ * Versão independente (Harlley):
+ *   - removida a verificação remota de licença/kill switch (probha.pages.dev)
+ *     e o envio do ID do blog para probha.mdrakib.workers.dev
+ *   - removido o uso de proxy.mdrakib.workers.dev (QR code e Watermark)
+ *   - corrigido o ícone de fechar do popup (icon-x-lg -> icon-close)
+ * Todos os recursos externos restantes ficam em harlleyreboucas.github.io/creditos
  */
 
 window.pbd = {};
@@ -224,169 +228,6 @@ const siteOrigin = window.location.origin;
 const feedSummaryUrl = siteOrigin + "/feeds/posts/summary?alt=json";
 localStorage.setItem("probha", "v1.1");
 
-// ===== Remote license / status check: fetches the feed + a status endpoint and shows an error screen if the template is disabled =====
-(function () {
-    const fetchJson = url => new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-        xhr.responseType = "text";
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    const contentType = xhr.getResponseHeader("Content-Type") || "";
-                    if (contentType.includes("application/json")) {
-                        try {
-                            const data = JSON.parse(xhr.responseText);
-                            resolve(data);
-                        }
-                        catch (error) {
-                            reject(new Error("Invalid JSON format"));
-                        }
-                    }
-                    else {
-                        reject(new Error("Invalid content type: " + contentType));
-                    }
-                }
-                else {
-                    reject(new Error("HTTP Error: " + xhr.status));
-                }
-            }
-        };
-        xhr.onerror = () => {
-            reject(new Error("Connection failed"));
-        };
-        xhr.send();
-    });
-    const showErrorScreen = (title, message) => {
-        document.body.innerHTML = "";
-        const div = document.createElement("div");
-        const containerStyles = {
-            minHeight: "100dvh",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            padding: "24px",
-            boxSizing: "border-box"
-        };
-        Object.assign(div.style, containerStyles);
-        const heading = document.createElement("h2");
-        const headingStyles = {
-            fontSize: "25px",
-            margin: "0 0 12px 0"
-        };
-        heading.textContent = title || "Something went wrong";
-        Object.assign(heading.style, headingStyles);
-        const paragraph = document.createElement("p");
-        const paragraphStyles = {
-            fontSize: "15px",
-            margin: "0 0 20px 0",
-            maxWidth: "480px"
-        };
-        paragraph.textContent = message || "An unexpected error occurred. Please try again.";
-        Object.assign(paragraph.style, paragraphStyles);
-        const button = document.createElement("button");
-        const buttonStyles = {
-            padding: "10px 20px",
-            borderRadius: "50px",
-            border: "none",
-            cursor: "pointer",
-            fontSize: "14px",
-            backgroundColor: "#1976d6",
-            color: "#fff",
-            boxShadow: "0 2px 6px rgba(0, 0, 0, 0.15)"
-        };
-        button.textContent = "Reload page";
-        Object.assign(button.style, buttonStyles);
-        button.onclick = () => window.location.reload();
-        div.append(heading, paragraph, button);
-        document.body.appendChild(div);
-    };
-    let blogId = null;
-    const summaryUrl = feedSummaryUrl + "&max-results" + "=0";
-    async function checkGlobalStatus() {
-        try {
-            const globalStatus = await fetchJson("https://probha.pages.dev/probha/blog/global.json");
-            if (blogId) {
-                (async function () {
-                    function toBase64Url(bytes) {
-                        return btoa(String.fromCharCode(...bytes)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-                    }
-                    const token = await async function () {
-                        const hmacAlgorithm = {
-                            name: "HMAC",
-                            hash: "SHA-256"
-                        };
-                        const encoder = new TextEncoder();
-                        const timestampBytes = encoder.encode((new Date()).toISOString());
-                        const key = await crypto.subtle.importKey("raw", encoder.encode("#rmn#"), hmacAlgorithm, false, ["sign"]);
-                        const signature = new Uint8Array(await crypto.subtle.sign("HMAC", key, timestampBytes));
-                        return toBase64Url(function (data, keyBytes) {
-                            const xored = new Uint8Array(data.length);
-                            for (let i = 0; i < data.length; i++) {
-                                xored[i] = data[i] ^ keyBytes[i % keyBytes.length];
-                            }
-                            return xored;
-                        }(timestampBytes, signature)) + "." + toBase64Url(signature);
-                    }();
-                    const formData = new FormData();
-                    const headers = {
-                        "x-secure-token": token
-                    };
-                    formData.append("id", blogId);
-                    await fetch("https://probha.mdrakib.workers.dev", {
-                        method: "POST",
-                        headers: headers,
-                        body: formData
-                    });
-                }().catch(() => {
-                }));
-            }
-            return enforceRemoteStatus(globalStatus);
-        }
-        catch (error) {
-            return function () {
-                const image = new Image();
-                image.src = "https://probha.pages.dev/probha/images/dot/1x1.png?" + Date.now();
-                image.onload = () => {
-                    showErrorScreen();
-                };
-            }();
-        }
-    }
-    function enforceRemoteStatus(status) {
-        if (status.status !== true) {
-            return function (status) {
-                const title = status.title;
-                const message = status.message;
-                showErrorScreen(title, message);
-            }(status);
-        }
-    }
-    (async function () {
-        try {
-            try {
-                const summaryFeed = await fetchJson(summaryUrl);
-                blogId = summaryFeed.feed.id.$t.split("-").pop();
-            }
-            catch (error) {
-                return checkGlobalStatus();
-            }
-            try {
-                return enforceRemoteStatus(await fetchJson((currentBlogId = blogId, "https://probha.pages.dev/probha/blog/" + currentBlogId + "/local.json")));
-            }
-            catch (error) {
-                return checkGlobalStatus();
-            }
-        }
-        catch (error) {
-            return checkGlobalStatus();
-        }
-        var currentBlogId;
-    })();
-})();
-
 // ---------- Modal popup (with history-based closing) ----------
 const showPopup = ({ title = "", message = "", closable = true, closeText = null, actionText = null, onClose = null, className = null } = {}) => {
     const popupId = "toast-" + Date.now();
@@ -410,7 +251,7 @@ const showPopup = ({ title = "", message = "", closable = true, closeText = null
     const closeButton = document.createElement("div");
     closeButton.className = "close";
     const icon = document.createElement("i");
-    icon.className = "icon-x-lg";
+    icon.className = "icon-close";
     closeButton.append(icon);
     head.append(titleEl, closeButton);
     const textEl = document.createElement("div");
@@ -822,7 +663,8 @@ domWatcher.register(".share-options", shareOptions => {
         if (!src) {
             try {
                 const linkIcon512x512 = document.querySelector("link[rel=\"icon\"][sizes=\"512x512\"]");
-                const logoUrl = linkIcon512x512?.href ? "https://proxy.mdrakib.workers.dev?url=" + encodeURIComponent(linkIcon512x512.href) : undefined;
+                // Sem proxy externo: QR gerado sem logo central (evita erro de CORS no canvas)
+                const logoUrl = undefined;
                 const qrOptions = {
                     url: link,
                     logo: logoUrl
@@ -3392,7 +3234,8 @@ domWatcher.register(pluginSelector("Watermark"), script => {
                 const canvas = document.createElement("canvas");
                 const ctx = canvas.getContext("2d");
                 const image = new Image();
-                const proxiedSrc = "https://proxy.mdrakib.workers.dev?url=" + img.src;
+                // Sem proxy externo: carrega a imagem direto (se o servidor não liberar CORS, a imagem fica sem marca d'água)
+                const proxiedSrc = img.src;
                 image.crossOrigin = "Anonymous";
                 image.onload = () => {
                     const width = image.width;
