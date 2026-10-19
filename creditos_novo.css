@@ -1,0 +1,343 @@
+/* =========================================================
+   Créditos finais — Harlley Rebouças
+   Versão isolada: tudo fica dentro de .cf-wrap.
+   Não altera body, html nem nada do template do site.
+   ========================================================= */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap");
+
+.cf-wrap {
+  --cf-bg-1: #0d1d31;
+  --cf-bg-2: #0c0d13;
+  --cf-cyan: #00ffe0;
+  --cf-pink: #ff2079;
+  --cf-navy: #1d1746;
+  --cf-text: #ffffff;
+  --cf-muted: rgba(255, 255, 255, .65);
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 280px;
+  padding: 40px 16px;
+  overflow: hidden;
+  clear: both;
+  background: radial-gradient(ellipse at bottom, var(--cf-bg-1) 0%, var(--cf-bg-2) 100%);
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--cf-text);
+  text-align: left;
+}
+
+/* Proteção contra estilos do template (Blogger, WordPress etc.) */
+.cf-wrap, .cf-wrap *, .cf-wrap *::before, .cf-wrap *::after { box-sizing: border-box; }
+#creditos-harlley { display: block; margin: 0; padding: 0; border: 0; width: 100%; max-width: none; }
+.cf-wrap div, .cf-wrap span, .cf-wrap a, .cf-wrap small { margin: 0; padding: 0; border: 0; float: none; }
+.cf-wrap span, .cf-wrap small { font-size: inherit; font-family: inherit; line-height: inherit; }
+.cf-wrap a, .cf-wrap a:hover, .cf-wrap a:visited { text-decoration: none; box-shadow: none; }
+.cf-wrap svg { display: block; max-width: none; }
+
+/* ---------- Fundo ---------- */
+.cf-wrap .cf-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cf-wrap .cf-orb { position: absolute; border-radius: 50%; animation: cf-float 14s ease-in-out infinite; }
+.cf-wrap .cf-orb--1 {
+  width: 240px; height: 240px; top: -90px; left: 5%;
+  background: linear-gradient(220deg, rgba(255,160,18,1), rgba(255,160,18,.2) 50%, transparent 70%);
+  filter: blur(5px);
+}
+.cf-wrap .cf-orb--2 {
+  width: 330px; height: 330px; bottom: -200px; left: 18%;
+  background: linear-gradient(220deg, rgba(0,255,224,1), rgba(0,255,224,.2) 50%, transparent 70%);
+  filter: blur(3px);
+  animation-duration: 18s; animation-delay: -6s;
+}
+.cf-wrap .cf-orb--3 {
+  width: 190px; height: 190px; top: 8%; right: 6%;
+  background: linear-gradient(220deg, rgba(255,32,86,1), rgba(255,32,86,.2) 50%, transparent 70%);
+  filter: blur(7px);
+  animation-duration: 16s; animation-delay: -3s;
+}
+@keyframes cf-float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(12px, -16px); } }
+
+/* Campo de estrelas 3D */
+.cf-wrap .cf-starfield { position: absolute; inset: 0; perspective: 600px; }
+.cf-wrap .cf-layer {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  box-shadow: -411px -476px #ccc, 777px -407px #d4d4d4, -387px -477px #fcfcfc, -91px -235px #d4d4d4, 491px -460px #f7f7f7, 892px -128px #f7f7f7, 758px -277px #ededed, 596px 378px #ccc, 647px 423px #f5f5f5, 183px 389px #c7c7c7,
+    524px -237px #f0f0f0, 679px -535px #e3e3e3, 158px 399px #ededed, 157px 249px #ededed, 81px -450px #ebebeb, 719px -360px #c2c2c2, -499px 473px #e8e8e8, -158px -349px #d4d4d4, 870px -134px #cfcfcf, 446px 404px #c2c2c2,
+    440px 490px #d4d4d4, 414px 507px #e6e6e6, -12px 246px #fcfcfc, -384px 369px #e3e3e3, 641px -413px #fcfcfc, 822px 516px #dbdbdb, 449px 132px #c2c2c2, 727px 146px #f7f7f7, -315px -488px #e6e6e6, 952px -70px #e3e3e3,
+    -869px -29px #dbdbdb, 502px 80px #dedede, 764px 342px #e0e0e0, -150px -380px #dbdbdb, 654px -426px #e3e3e3, -325px -263px #c2c2c2, 755px -447px #c7c7c7, 729px -177px #c2c2c2, -682px -391px #e6e6e6, 554px -176px #ededed,
+    -85px -428px #d9d9d9, 714px 55px #e8e8e8, 359px -285px #cfcfcf, -362px -508px #dedede, 468px -265px #fcfcfc, 74px -500px #c7c7c7, -514px 383px #dbdbdb, 730px -92px #cfcfcf, -112px 287px #c9c9c9, -853px 79px #d6d6d6,
+    828px 475px #d6d6d6, -681px 13px #fafafa, -176px 209px #f0f0f0, 758px 457px #fafafa, -383px -454px #ededed, 813px 179px #d1d1d1, 608px 98px #f5f5f5, -860px -65px #c4c4c4, -572px 272px #f7f7f7, 459px 533px #fcfcfc,
+    624px -481px #e6e6e6, 790px 477px #dedede, 731px -403px #ededed, 70px -534px #ccc, -23px 510px #cfcfcf, -652px -237px #f5f5f5, -690px 367px #d1d1d1, 810px 536px #d1d1d1, 774px 293px #c9c9c9, -362px 97px #c2c2c2,
+    563px 47px #dedede, 313px 475px #e0e0e0, 839px -491px #e3e3e3, -217px 377px #d4d4d4, -581px 239px #c2c2c2, -857px 72px #ccc, -23px 340px #dedede, -837px 246px #fff, 170px -502px #cfcfcf, 822px -443px #e0e0e0, 795px 497px #e0e0e0,
+    -814px -337px #cfcfcf, 206px -339px #f2f2f2, -779px 108px #e6e6e6, 808px 2px #d4d4d4, 665px 41px #d4d4d4, -564px 64px #ccc, -380px 74px #cfcfcf, -369px -60px #f7f7f7, 47px -495px #e3e3e3, -383px 368px #f7f7f7, 419px 288px #d1d1d1,
+    -598px -50px #c2c2c2, -833px 187px #c4c4c4, 378px 325px #f5f5f5, -703px 375px #d6d6d6, 392px 520px #d9d9d9, -492px -60px #c4c4c4, 759px 288px #ebebeb, 98px -412px #c4c4c4, -911px -277px #c9c9c9;
+  animation: cf-fly-by 9s linear infinite;
+}
+.cf-wrap .cf-layer:nth-child(2) { animation-delay: -3s; }
+.cf-wrap .cf-layer:nth-child(3) { animation-delay: -6s; }
+@keyframes cf-fly-by {
+  0%   { transform: translateZ(-600px); opacity: 0; }
+  15%  { opacity: .55; }
+  85%  { opacity: .55; }
+  100% { transform: translateZ(450px); opacity: 0; }
+}
+
+/* Estrelas cadentes */
+.cf-wrap .cf-shooting {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 2000px; height: 2000px;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+.cf-wrap .cf-star {
+  --tail: 6em;
+  --star-width: calc(var(--tail) / 6);
+  position: absolute;
+  top: var(--top, 50%);
+  left: 0;
+  width: var(--tail);
+  height: 2px;
+  font-size: 16px;
+  color: var(--color, var(--cf-cyan));
+  background: linear-gradient(45deg, currentColor, transparent);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 6px currentColor);
+  transform: translate3d(104em, 0, 0);
+  animation:
+    cf-fall var(--dur, 9s) var(--delay, 0s) linear infinite,
+    cf-tail-fade var(--dur, 9s) var(--delay, 0s) ease-out infinite;
+}
+.cf-wrap .cf-star::before, .cf-wrap .cf-star::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(var(--star-width) / -2);
+  width: var(--star-width);
+  height: 100%;
+  background: linear-gradient(45deg, transparent, currentColor, transparent);
+  border-radius: inherit;
+  animation: cf-blink 2s linear infinite;
+}
+.cf-wrap .cf-star::before { transform: rotate(45deg); }
+.cf-wrap .cf-star::after  { transform: rotate(-45deg); }
+@keyframes cf-fall { to { transform: translate3d(-30em, 0, 0); } }
+@keyframes cf-tail-fade {
+  0%, 50% { width: var(--tail); opacity: 1; }
+  70%, 80% { width: 0; opacity: .4; }
+  100% { width: 0; opacity: 0; }
+}
+@keyframes cf-blink { 50% { opacity: .6; } }
+
+/* ---------- Cartão ---------- */
+.cf-wrap .cf-credit {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  max-width: 100%;
+  padding: 22px 28px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+.cf-wrap.cf-visible .cf-credit { animation: cf-enter .9s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes cf-enter {
+  from { opacity: 0; transform: translateY(18px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+.cf-wrap .cf-logo-link { flex: 0 0 auto; display: block; border-radius: 29px; transition: transform .3s ease; }
+.cf-wrap .cf-logo-link:hover { transform: rotate(-6deg) scale(1.05); }
+
+.cf-wrap .cf-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+
+.cf-wrap .cf-label {
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--cf-muted);
+}
+
+.cf-wrap .cf-name {
+  display: inline-block;
+  font-size: clamp(22px, 4vw, 28px);
+  font-weight: 800;
+  line-height: 1.15;
+  background: linear-gradient(90deg, #fff 0%, var(--cf-cyan) 40%, var(--cf-pink) 70%, #fff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: cf-shine 6s linear infinite;
+}
+@keyframes cf-shine { to { background-position: -200% center; } }
+
+.cf-wrap .cf-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+
+.cf-wrap .cf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--cf-text);
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .15);
+  transition: background .25s, border-color .25s, transform .25s;
+}
+.cf-wrap .cf-btn svg { width: 15px; height: 15px; fill: currentColor; }
+.cf-wrap .cf-btn:hover { color: var(--cf-text); background: rgba(0, 255, 224, .15); border-color: var(--cf-cyan); transform: translateY(-2px); }
+.cf-wrap .cf-btn--wa:hover { background: rgba(37, 211, 102, .2); border-color: #25d366; }
+.cf-wrap .cf-btn:focus-visible, .cf-wrap .cf-name:focus-visible, .cf-wrap .cf-logo-link:focus-visible {
+  outline: 2px solid var(--cf-cyan);
+  outline-offset: 3px;
+}
+
+.cf-wrap .cf-copy { display: block; margin-top: 6px; font-size: 11px; color: var(--cf-muted); }
+
+/* ---------- Logo animado ---------- */
+.cf-wrap .cf-logo {
+  position: relative;
+  display: block;
+  width: 100px; height: 100px;
+  overflow: hidden;
+  border-radius: 29px;
+  background: #fff;
+  box-shadow: 0 3px 17px 3px rgba(0, 0, 0, .15), 0 0 30px rgba(0, 255, 224, .25);
+}
+.cf-wrap .cf-trail {
+  position: relative;
+  background-color: var(--cf-cyan);
+  border: 3px solid #ffe3a6;
+  padding-top: 75px;
+  border-radius: 0 0 58px 58px;
+  height: 58px; width: 58px;
+  box-sizing: content-box;
+  transform: rotate(55deg) translate(10px, -49px);
+}
+.cf-wrap .cf-echo::before, .cf-wrap .cf-echo::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -8px; bottom: -9px;
+  width: 104px; height: 104px;
+  border-radius: 100%;
+  background: radial-gradient(circle at center, rgba(255,209,110,.1) 0, rgba(255,209,110,.35) 50%, rgba(255,209,110,1) 100%);
+  animation: cf-expand 1s linear infinite;
+}
+.cf-wrap .cf-echo::after { animation-delay: -500ms; }
+.cf-wrap .cf-trail-dark {
+  position: relative;
+  width: 48px; height: 48px;
+  box-sizing: content-box;
+  background-color: var(--cf-navy);
+  margin: -5px auto 0;
+  padding-top: 9px;
+  border-radius: 0 0 58px 58px;
+}
+.cf-wrap .cf-tail-line { position: absolute; width: 7px; border-radius: 12px; z-index: 4; }
+.cf-wrap .cf-tail-line:nth-child(odd)::before, .cf-wrap .cf-tail-line:nth-child(odd)::after {
+  content: '';
+  display: block;
+  position: relative;
+  width: 7px;
+  border-radius: 12px;
+  background-color: var(--cf-navy);
+}
+.cf-wrap .cf-tail-line:nth-child(odd)::after  { height: 14px; transform: translateY(-200%); animation: cf-shooting-tail 2s ease-in infinite; }
+.cf-wrap .cf-tail-line:nth-child(odd)::before { height: 23px; transform: translateY(-6px); animation: cf-moving-tail 2s ease-in infinite; }
+.cf-wrap .cf-tail-line:nth-child(even) { height: 20px; background: var(--cf-cyan); animation: cf-moving-mask 2s ease-in-out infinite; }
+.cf-wrap .cf-tail-line:nth-child(1) { left: 0;    top: -9px; }
+.cf-wrap .cf-tail-line:nth-child(2) { left: 7px;  top: -7px; animation-delay: -200ms; }
+.cf-wrap .cf-tail-line:nth-child(3) { left: 14px; top: -9px; }
+.cf-wrap .cf-tail-line:nth-child(4) { left: 21px; top: -7px; }
+.cf-wrap .cf-tail-line:nth-child(5) { left: 28px; top: -9px; }
+.cf-wrap .cf-tail-line:nth-child(6) { left: 35px; top: -7px; animation-delay: -450ms; }
+.cf-wrap .cf-tail-line:nth-child(7) { left: 42px; top: -9px; }
+.cf-wrap .cf-tail-line:nth-child(3)::before, .cf-wrap .cf-tail-line:nth-child(3)::after { animation-delay: -500ms; animation-duration: 2.2s; }
+.cf-wrap .cf-tail-line:nth-child(3)::before { animation-timing-function: ease-in-out; }
+.cf-wrap .cf-tail-line:nth-child(5)::before, .cf-wrap .cf-tail-line:nth-child(5)::after { animation-delay: -120ms; animation-duration: 1.78s; }
+.cf-wrap .cf-tail-line:nth-child(5)::before { animation-timing-function: ease-in-out; }
+.cf-wrap .cf-tail-line:nth-child(7)::before, .cf-wrap .cf-tail-line:nth-child(7)::after { animation-delay: -700ms; }
+
+.cf-wrap .cf-planet {
+  position: relative;
+  z-index: 3;
+  width: 36px; height: 36px;
+  margin: 6px auto 0;
+  border-radius: 100%;
+  overflow: hidden;
+  background-color: var(--cf-pink);
+  box-shadow: 0 0 9px 2px var(--cf-pink);
+}
+.cf-wrap .cf-planet::after {
+  content: '';
+  position: absolute;
+  top: -12px; left: 3px;
+  width: 29px; height: 29px;
+  border-radius: 100%;
+  background-color: rgba(255, 255, 255, .17);
+  box-shadow: 0 0 3px #ff458e;
+}
+.cf-wrap .cf-planet-dot {
+  position: absolute;
+  top: 18px; left: 7px;
+  width: 7px; height: 7px;
+  border-radius: 100%;
+  background-color: rgba(0, 0, 0, .05);
+  box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, .1) inset;
+  animation: cf-moving-dot 3s linear infinite;
+}
+.cf-wrap .cf-planet-dot:nth-child(2) { width: 10px; height: 10px; top: 5px;   left: 17px; }
+.cf-wrap .cf-planet-dot:nth-child(3) { width: 6px;  height: 6px;  top: 35px;  left: 22px; }
+.cf-wrap .cf-planet-dot:nth-child(4) { top: 75px;  left: 14px; }
+.cf-wrap .cf-planet-dot:nth-child(5) { top: 112px; left: 6px; }
+
+@keyframes cf-moving-tail   { 0%, 100% { transform: translateY(-3px); } 50% { transform: translateY(-12px); } }
+@keyframes cf-shooting-tail { 0% { transform: translateY(-23px); } 50% { transform: translateY(-40px); } 100% { transform: translateY(-230px); } }
+@keyframes cf-moving-mask   { 0%, 100% { transform: translateY(-3px); } 50% { transform: translateY(-9px); } }
+@keyframes cf-moving-dot    { 0% { transform: translateY(46px); } 100% { transform: translateY(-118px); } }
+@keyframes cf-expand        { 0% { transform: scale(.55); opacity: 1; } 100% { transform: scale(.95); opacity: 0; } }
+
+/* Pausa as animações quando o rodapé sai da tela (economiza CPU/bateria) */
+.cf-wrap.cf-paused *, .cf-wrap.cf-paused *::before, .cf-wrap.cf-paused *::after { animation-play-state: paused !important; }
+
+/* ---------- Celular ---------- */
+@media (max-width: 560px) {
+  .cf-wrap { padding: 32px 16px; }
+  .cf-wrap .cf-credit { flex-direction: column; text-align: center; gap: 16px; padding: 22px 20px; width: 100%; }
+  .cf-wrap .cf-text { align-items: center; }
+  .cf-wrap .cf-actions { justify-content: center; }
+  .cf-wrap .cf-star { animation: cf-fall var(--dur, 9s) var(--delay, 0s) linear infinite; }
+  .cf-wrap .cf-orb--2 { width: 240px; height: 240px; }
+}
+
+/* Respeita quem desativa animações no sistema */
+@media (prefers-reduced-motion: reduce) {
+  .cf-wrap *, .cf-wrap *::before, .cf-wrap *::after { animation: none !important; transition: none !important; }
+  .cf-wrap .cf-star { display: none; }
+}
