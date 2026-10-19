@@ -21,7 +21,7 @@
   align-items: center;
   width: 100%;
   min-height: 180px;
-  padding: 40px 16px;
+  padding: 0px 16px;
   overflow: hidden;
   clear: both;
   background: radial-gradient(ellipse at bottom, var(--cf-bg-1) 0%, var(--cf-bg-2) 100%);
