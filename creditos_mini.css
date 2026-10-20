@@ -355,12 +355,12 @@
 }
 
 /* Logo reduzido de 100px para 52px mantendo a animação */
-.cf-wrap .cf-logo-link { width: 82px; height: 82px; border-radius: 15px; }
+.cf-wrap .cf-logo-link { width: 92px; height: 92px; border-radius: 15px; }
 .cf-wrap .cf-logo { transform: scale(.82); transform-origin: top left; }
 
 .cf-wrap .cf-text { gap: 1px; }
 .cf-wrap .cf-label { font-size: 9.5px; letter-spacing: .12em; }
-.cf-wrap .cf-name { font-size: 22px; line-height: 1.2; }
+.cf-wrap .cf-name { font-size: 24px; line-height: 1.2; }
 
 /* Botões e copyright na mesma linha */
 .cf-wrap .cf-actions { gap: 6px; margin-top: 4px; align-items: center; }
@@ -378,8 +378,8 @@
   .cf-wrap .cf-credit { flex-direction: row; text-align: left; gap: 10px; padding: 9px 12px 9px 9px; width: auto; }
   .cf-wrap .cf-text { align-items: flex-start; }
   .cf-wrap .cf-actions { justify-content: flex-start; }
-  .cf-wrap .cf-logo-link { width: 46px; height: 46px; border-radius: 13px; }
+  .cf-wrap .cf-logo-link { width: 56px; height: 56px; border-radius: 13px; }
   .cf-wrap .cf-logo { transform: scale(.46); }
-  .cf-wrap .cf-name { font-size: 15px; }
+  .cf-wrap .cf-name { font-size: 16px; }
   .cf-wrap .cf-orb--2 { width: 150px; height: 150px; }
 }
