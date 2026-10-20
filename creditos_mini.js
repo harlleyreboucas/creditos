@@ -13,9 +13,9 @@
     rotulo:   'Desenvolvido por',
     nome:     'Harlley Rebouças',
     site:     'https://www.harlley.com.br',
-    siteTxt:  'harlley.com.br',
+    siteTxt:  'Site',
     whatsapp: '5569999481714',
-    foneTxt:  '(69) 99948-1714'
+    foneTxt:  'WhatsApp'
   };
 
   var script = document.currentScript;
