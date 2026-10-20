@@ -373,7 +373,7 @@
 .cf-wrap .cf-orb--2 { width: 180px; height: 180px; bottom: -130px; }
 .cf-wrap .cf-orb--3 { width: 110px; height: 110px; top: -30px; }
 
-@media (max-width: 260px) {
+@media (max-width: 160px) {
   .cf-wrap { padding: 12px 10px; }
   .cf-wrap .cf-credit { flex-direction: row; text-align: left; gap: 10px; padding: 9px 12px 9px 9px; width: auto; }
   .cf-wrap .cf-text { align-items: flex-start; }
