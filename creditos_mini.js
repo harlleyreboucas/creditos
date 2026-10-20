@@ -10,7 +10,7 @@
 
   // ---- Configuração (edite aqui) ----
   var CONFIG = {
-    rotulo:   'Site desenvolvido por',
+    rotulo:   'Desenvolvido por',
     nome:     'Harlley Rebouças',
     site:     'https://www.harlley.com.br',
     siteTxt:  'harlley.com.br',
