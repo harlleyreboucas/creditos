@@ -355,12 +355,12 @@
 }
 
 /* Logo reduzido de 100px para 52px mantendo a animação */
-.cf-wrap .cf-logo-link { width: 72px; height: 72px; border-radius: 15px; }
-.cf-wrap .cf-logo { transform: scale(.72); transform-origin: top left; }
+.cf-wrap .cf-logo-link { width: 82px; height: 82px; border-radius: 15px; }
+.cf-wrap .cf-logo { transform: scale(.82); transform-origin: top left; }
 
 .cf-wrap .cf-text { gap: 1px; }
 .cf-wrap .cf-label { font-size: 9.5px; letter-spacing: .12em; }
-.cf-wrap .cf-name { font-size: 20px; line-height: 1.2; }
+.cf-wrap .cf-name { font-size: 22px; line-height: 1.2; }
 
 /* Botões e copyright na mesma linha */
 .cf-wrap .cf-actions { gap: 6px; margin-top: 4px; align-items: center; }
