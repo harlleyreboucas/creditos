@@ -379,7 +379,7 @@
   .cf-wrap .cf-text { align-items: flex-start; }
   .cf-wrap .cf-actions { justify-content: flex-start; }
   .cf-wrap .cf-logo-link { width: 56px; height: 56px; border-radius: 13px; }
-  .cf-wrap .cf-logo { transform: scale(.76); }
-  .cf-wrap .cf-name { font-size: 18px; }
+  .cf-wrap .cf-logo { transform: scale(.66); }
+  .cf-wrap .cf-name { font-size: 19px; }
   .cf-wrap .cf-orb--2 { width: 150px; height: 150px; }
 }
